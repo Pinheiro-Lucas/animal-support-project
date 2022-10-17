@@ -9,7 +9,7 @@ import mysql.connector as mysql
 """
 
 # app.config["SQLALCHEMY_DATABASE_URI"] = \
-#     f"{config['DB_SYSTEM']}://" \
+#     f"{config['DB_CONNECTION']}://" \
 #     f"{config['DB_USER']}:" \
 #     f"{config['DB_PASSWORD']}@" \
 #     f"{config['DB_HOST']}:" \
