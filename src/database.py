@@ -1,5 +1,6 @@
 # from flask_sqlalchemy import SQLAlchemy
 import mysql.connector as mysql
+from dotenv import dotenv_values
 
 """
     Future Stuff:
@@ -20,21 +21,21 @@ import mysql.connector as mysql
 
 
 class Database:
-    def __init__(self, config: dict):
+    def __init__(self, cfg):
         try:
             self.db = mysql.connect(
-                host=config['DB_HOST'],
-                port=config['DB_PORT'],
-                database=config['DB_NAME'],
-                user=config['DB_USER'],
-                password=config['DB_PASSWORD']
+                host=cfg['DB_HOST'],
+                port=cfg['DB_PORT'],
+                database=cfg['DB_NAME'],
+                user=cfg['DB_USER'],
+                password=cfg['DB_PASSWORD']
             )
         except mysql.Error as err:
             # Print the problem and exit the application
             print(f"{err.errno} | {err.msg}")
             exit()
 
-    def execute(self, command: str):
+    def execute(self, command):
         cursor = self.db.cursor()
         # Just to avoid syntax errors
         command = command + ";" if command[-1] != ";" else command
@@ -44,7 +45,7 @@ class Database:
         self.db.commit()
         cursor.close()
 
-    def find(self, table: str, column=False, id=False):
+    def find(self, table, column=False, id=False):
         cursor = self.db.cursor()
         if not column and not id:
             sql = f"SELECT * FROM {table};"
@@ -57,7 +58,19 @@ class Database:
 
     def delete(self, table, column, info):
         cursor = self.db.cursor()
-        cursor.execute("DELETE FROM %s WHERE %s = %s", (table, column, info))
+
+        sql = f"DELETE FROM {table} WHERE {column}={info}"
+
+        cursor.execute(sql)
 
         self.db.commit()
         cursor.close()
+
+        # Todo: Check if post exists (return 404)
+        return "200"  # Just for tests
+
+
+# Return a dict with everything from .env
+config = dotenv_values()
+
+db = Database(config)
