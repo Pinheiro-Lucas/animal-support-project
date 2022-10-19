@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS `post_category` ;
 CREATE TABLE IF NOT EXISTS `post_category` (
   `category_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
+  `isActive` TINYINT NULL DEFAULT 1,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -45,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `title` VARCHAR(255) NOT NULL,
   `description` TEXT NOT NULL,
   `post_category` INT NOT NULL,
-  `create_time` TIMESTAMP NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`post_id`),
   INDEX `fk_post_post_type_idx` (`post_category` ASC) VISIBLE,
   CONSTRAINT `fk_post_post_type`

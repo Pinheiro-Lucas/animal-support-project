@@ -18,13 +18,13 @@ VALUES
     ('Perdido');
 
 INSERT INTO `post`
-	(title, description, post_category, create_time)
+	(title, description, post_category)
 VALUES
-	('Dalmata', 'Atende pelo nome de Jessie, super carinhoso', 1, CURRENT_TIMESTAMP),
-    ('Calopsita', 'Bem comunicativo', 1, CURRENT_TIMESTAMP),
-    ('Qualquer gatinho', 'Moro sozinho e quero adotar um gatinho', 2, CURRENT_TIMESTAMP),
-    ('Caramelo', 'Achei um caramelo perdido na 410 norte', 5, CURRENT_TIMESTAMP),
-    ('Scooby-doo', 'Scooby-doo cade voce meu filho?', 6, CURRENT_TIMESTAMP);
+	('Dalmata', 'Atende pelo nome de Jessie, super carinhoso', 1),
+    ('Calopsita', 'Bem comunicativo', 1),
+    ('Qualquer gatinho', 'Moro sozinho e quero adotar um gatinho', 2),
+    ('Caramelo', 'Achei um caramelo perdido na 410 norte', 5),
+    ('Scooby-doo', 'Scooby-doo cade voce meu filho?', 6);
 
 INSERT INTO `post_image`
 	(image_url, post_id)
