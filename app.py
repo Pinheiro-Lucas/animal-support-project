@@ -4,11 +4,14 @@
 """
 
 from flask import Flask, session, request, redirect, url_for, render_template, flash, current_app
+from flask_cors import CORS
 
 from src.post import post_bp
 
 
 app = Flask(__name__)
+# Access-Control-Allow-Origin
+CORS(app)  # Cross Origin Resource Sharing
 
 # Using flask blueprints to split code into modules
 app.register_blueprint(post_bp, url_prefix="/post")
