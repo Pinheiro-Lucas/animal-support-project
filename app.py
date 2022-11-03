@@ -6,7 +6,8 @@
 from flask import Flask, session, request, redirect, url_for, render_template, flash, current_app
 from flask_cors import CORS
 
-from src.post import post_bp
+from src.post import post
+from src.category import category
 
 
 app = Flask(__name__)
@@ -14,7 +15,8 @@ app = Flask(__name__)
 CORS(app)  # Cross Origin Resource Sharing
 
 # Using flask blueprints to split code into modules
-app.register_blueprint(post_bp, url_prefix="/post")
+app.register_blueprint(post, url_prefix="/post")
+app.register_blueprint(category, url_prefix="/category")
 
 
 # Basic test route

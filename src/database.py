@@ -45,9 +45,14 @@ class Database:
         self.db.commit()
         cursor.close()
 
+    # CREATE
+    def create(self):
+        pass
+
+    # READ
     def find(self, table, column=False, id=False):
         cursor = self.db.cursor()
-        if not column and not id:
+        if not column or not id:
             sql = f"SELECT * FROM {table};"
         else:
             sql = f"SELECT * FROM {table} WHERE {column}={id};"
@@ -56,6 +61,19 @@ class Database:
 
         return cursor.fetchall()
 
+    # UPDATE
+    def update(self, table, column, data, column_id, idt):
+        cursor = self.db.cursor()
+
+        sql = f"UPDATE {table} SET {column}={data} WHERE {column_id} = {idt};"
+
+        cursor.execute(sql)
+        self.db.commit()
+        cursor.close()
+
+        return "200"
+
+    # DELETE
     def delete(self, table, column, info):
         cursor = self.db.cursor()
 
