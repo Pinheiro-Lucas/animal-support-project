@@ -38,7 +38,7 @@ class Database:
     def execute(self, command):
         cursor = self.db.cursor()
         # Just to avoid syntax errors
-        command = command + ";" if command[-1] != ";" else command
+        command = f"{command};" if command[-1] != ";" else command
 
         # Execute and commit
         cursor.execute(command)
@@ -46,16 +46,32 @@ class Database:
         cursor.close()
 
     # CREATE
-    def create(self):
-        pass
+    def create(self, table, info):
+        keys = ", ".join(info.keys())
+        values = "'" + "', '".join(info.values()) + "'"
+
+        cursor = self.db.cursor()
+
+        sql = f"INSERT INTO {table} ({keys}) VALUES ({values});"
+
+        cursor.execute(sql)
+
+        self.db.commit()
+        cursor.close()
+
+        return "201"
 
     # READ
-    def find(self, table, column=False, id=False):
+    def find(self, table, column=False, idt=False):
+        # Avoid mysql injection
+        if idt and not str(idt).isnumeric():
+            return "TypeError"
+
         cursor = self.db.cursor()
-        if not column or not id:
+        if not column or not idt:
             sql = f"SELECT * FROM {table};"
         else:
-            sql = f"SELECT * FROM {table} WHERE {column}={id};"
+            sql = f"SELECT * FROM {table} WHERE {column}={idt};"
 
         cursor.execute(sql)
 
@@ -75,6 +91,10 @@ class Database:
 
     # DELETE
     def delete(self, table, column, info):
+        # Avoid mysql injection
+        if not str(info).isnumeric():
+            return "TypeError"
+
         cursor = self.db.cursor()
 
         sql = f"DELETE FROM {table} WHERE {column}={info}"
