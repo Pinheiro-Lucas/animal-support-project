@@ -1,26 +1,26 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from .database import db
 
 category = Blueprint("category", __name__)
 
 
-@category.route('/create', methods=['POST'])
+@category.route('/', methods=['POST'])
 def create():
-    # Todo: Create route
-    pass
+    return db.create("post_category", request.json)
 
 
-@category.route('/find', methods=['GET'])
+@category.route('/', methods=['GET'])
 def find_all():
     return db.find("post_category")
 
 
-@category.route('/find/<idt>', methods=['GET'])
+@category.route('/<idt>', methods=['GET'])
 def find(idt):
+    # Todo: Find first
     return db.find("post_category", "category_id", idt)
 
 
-@category.route('/delete/<idt>', methods=['GET'])
+@category.route('/<idt>', methods=['DELETE'])
 def delete(idt):
     # Todo: Check if category is not active
     return db.update("post_category", "isActive", 0, "category_id", idt)
