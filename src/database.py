@@ -59,7 +59,7 @@ class Database:
         self.db.commit()
         cursor.close()
 
-        return "201"
+        return sql, 201
 
     # READ
     def find(self, table, column=False, idt=False):
@@ -87,7 +87,7 @@ class Database:
         self.db.commit()
         cursor.close()
 
-        return "200"
+        return sql, 200
 
     # DELETE
     def delete(self, table, column, info):
@@ -97,7 +97,7 @@ class Database:
 
         cursor = self.db.cursor()
 
-        sql = f"DELETE FROM {table} WHERE {column}={info}"
+        sql = f"DELETE FROM {table} WHERE {column}={info};"
 
         cursor.execute(sql)
 
@@ -105,7 +105,7 @@ class Database:
         cursor.close()
 
         # Todo: Check if post exists (return 404)
-        return "200"  # Just for tests
+        return sql, 200
 
 
 # Return a dict with everything from .env
