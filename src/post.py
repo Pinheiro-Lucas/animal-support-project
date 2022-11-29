@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from .database import db
 
 post = Blueprint("post", __name__)
@@ -10,22 +10,21 @@ post = Blueprint("post", __name__)
 """
 
 
-@post.route('/create', methods=['POST'])
+@post.route('/', methods=['POST'])
 def create():
-    # Todo: Create route
-    pass
+    return db.create("post", request.json)
 
 
-@post.route('/find', methods=['GET'])
+@post.route('/', methods=['GET'])
 def find_all():
     return db.find("post")
 
 
-@post.route('/find/<idt>', methods=['GET'])
+@post.route('/<idt>', methods=['GET'])
 def find(idt):
     return db.find("post", "post_id", idt)
 
 
-@post.route('/delete/<idt>', methods=['GET'])
+@post.route('/<idt>', methods=['DELETE'])
 def delete(idt):
     return db.delete("post", "post_id", idt)
