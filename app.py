@@ -6,6 +6,7 @@
 from flask import Flask, session, request, redirect, url_for, render_template, flash, current_app
 from flask_cors import CORS
 
+from src.database import config
 from src.post import post
 from src.category import category
 
@@ -26,4 +27,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)  # Using debug for development
+    app.run(debug=True, port=config["PORT"])  # Using debug for development
